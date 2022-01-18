@@ -1,0 +1,23 @@
+
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Patch
+metadata:
+  name: patch-operator-tekton-pruner-config 
+  namespace: patch-operator-patch-tekton-ns
+spec:
+  serviceAccountRef:
+    name: patch-operator-tekton-config-sa
+  patches:
+    patch-tekton-pruner-keep:
+      targetObjectRef:
+        apiVersion: operator.tekton.dev/v1alpha1
+        kind: TektonConfig
+        name: config  
+      patchTemplate: |
+        spec:
+          pruner:
+            keep: 5
+            schedule: 0/5 0 0 0 0
+      patchType: application/merge-patch+json
+ 
+  

@@ -1,0 +1,19 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Patch
+metadata:
+  name: lock-configmap-value
+  namespace: patch-operator-test-ns
+spec:
+  serviceAccountRef:
+    name: patch-operator-configmap-sa
+  patches:
+    id-patch-random-annotation:
+      targetObjectRef:
+        apiVersion: v1
+        kind: ConfigMap
+        name: random-configmap
+        namespace: patch-operator-test-ns
+      patchTemplate: |
+        data:
+          random-data: good
+      patchType: application/merge-patch+json
